@@ -1,15 +1,20 @@
-exports.success = (req, res, message = "", status = 200) => {
-  res.status(status).json({
-    error: false,
-    status,
-    body: message,
+const success = (res, data = {}, message = "Operación exitosa", statusCode = 200) => {
+  return res.status(statusCode).json({
+    success: true,
+    message,
+    data,
   });
 };
 
-exports.error = (req, res, message = "Internal Server Error", status = 500) => {
-  res.status(status).json({
-    error: true,
-    status,
-    body: message,
+const error = (res, message = "Ocurrió un error", statusCode = 500, errors = null) => {
+  return res.status(statusCode).json({
+    success: false,
+    message,
+    errors,
   });
+};
+
+module.exports = {
+  success,
+  error,
 };
