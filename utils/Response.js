@@ -1,18 +1,15 @@
-const success = (res, data = {}, message = "operacion exitosa" = 200) => {
-    return res.status(statusCode).json({
-        success: true,
-        message,
-        data,
-    });
+exports.success = (req, res, message = "", status = 200) => {
+  res.status(status).json({
+    error: false,
+    status,
+    body: message,
+  });
 };
-const errorResponse = (res, error ={},message = "error en loa operacion",statusCode = 500) => {
-    return res.status(statusCode).json({
-        success: false,
-        message,
-        error,
-    });
-}
-module.exports = {
-    successResponse,
-    errorResponse
-}
+
+exports.error = (req, res, message = "Internal Server Error", status = 500) => {
+  res.status(status).json({
+    error: true,
+    status,
+    body: message,
+  });
+};
