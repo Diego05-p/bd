@@ -5,8 +5,8 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const path = require("path");
 
-const errorHandler = require("../middlewares/errors");
-const responseHandler = require("../res/red/response"); 
+const errorHandler = require("../midlewares/error");
+
 
 const authRoutes = require("../auth/index");
 const roleRoutes = require("../routes/role.routes");

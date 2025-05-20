@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
 const config = require("../config");
-const error = require("../middlewares/errors");
+const error = require("../midlewares/error");
 
-const secret = config.jwt.secret;
+const secret = config.Jwt.secret;
 
 function assignToken(data) {
   return jwt.sign(data, secret);

@@ -1,24 +1,36 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/database");
+const { Sequelize, DataTypes } = require("sequelize");
+const sequelize = require("../bd/bd");
+const User = require("./user.models");
 
-const Role = sequelize.define("Role", {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
+const Role = sequelize.define(
+  "Role",
+  {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
+    name: {
+      type: DataTypes.STRING(150),
+      allowNull: false,
+      validate: {
+        notNull: { msg: "name is required" },
+      },
+    },
   },
-  name: {
-    type: DataTypes.STRING(100),
-    allowNull: false,
-    unique: true,
-  },
-  description: {
-    type: DataTypes.STRING(255),
-    allowNull: true,
-  },
-}, {
-  tableName: "roles",
-  timestamps: false,
+  {
+    timestamps: true,
+  }
+);
+
+Role.hasMany(User, {
+  foreignKey: "role_id",
+  sourceKey: "id",
+});
+
+User.belongsTo(Role, {
+  foreignKey: "role_id",
+  targetKey: "id",
 });
 
 module.exports = Role;
